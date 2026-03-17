@@ -1,0 +1,59 @@
+{
+  "pit_on_lap_uses_new_tire": false,
+  "tie_break_with_grid": true,
+  "SOFT": {
+    "compound_delta": -0.96,
+    "fresh_bonus": -0.28,
+    "second_lap_bonus": -0.02,
+    "grace_laps": 1,
+    "linear_deg": 0.028,
+    "quadratic_deg": 0.0022,
+    "temp_deg": 0.0022,
+    "sprint_window_start": 2,
+    "sprint_window_end": 4,
+    "sprint_window_bonus": -0.30,
+    "fade_start": 5,
+    "fade_per_lap": 0.20,
+    "planned_stint_len_coeff": 0.012,
+    "late_stint_cliff_start": 7,
+    "late_stint_cliff_per_lap": 0.10
+  },
+  "MEDIUM": {
+    "compound_delta": -0.05,
+    "fresh_bonus": -0.05,
+    "second_lap_bonus": -0.03,
+    "grace_laps": 2,
+    "linear_deg": 0.016,
+    "quadratic_deg": 0.0010,
+    "temp_deg": 0.0013,
+    "late_stint_start": 12,
+    "late_stint_deg": 0.006,
+    "planned_stint_len_coeff": 0.006,
+    "late_stint_cliff_start": 16,
+    "late_stint_cliff_per_lap": 0.03
+  },
+  "HARD": {
+    "compound_delta": 0.68,
+    "fresh_bonus": -0.08,
+    "second_lap_bonus": -0.03,
+    "grace_laps": 3,
+    "linear_deg": 0.010,
+    "quadratic_deg": 0.0005,
+    "temp_deg": 0.0008,
+    "late_stint_start": 13,
+    "late_stint_deg": 0.0003,
+    "planned_stint_len_coeff": -0.003,
+    "late_stint_cliff_start": 22,
+    "late_stint_cliff_per_lap": 0.01
+  },
+  "GLOBAL": {
+    "hard_ultra_long_relief_start": 20,
+    "hard_ultra_long_relief_per_lap": -0.05,
+    "transition_bonus_soft_to_hard": -0.10,
+    "transition_bonus_medium_to_hard": 0.05,
+    "transition_bonus_hard_to_soft": -0.18,
+    "transition_bonus_hard_to_medium": -0.08,
+    "transition_bonus_soft_to_medium": 0.02,
+    "transition_bonus_medium_to_soft": -0.08
+  }
+}

@@ -14,7 +14,7 @@ COMPOUND_PARAMS = {
         "sprint_window_end": 5,
         "sprint_window_bonus": -0.5,
         "fade_start": 7,
-        "fade_per_lap": 0.23,
+        "fade_per_lap": 0.2,
     },
     "MEDIUM": {
         "compound_delta": -0.15,
@@ -25,7 +25,7 @@ COMPOUND_PARAMS = {
         "quadratic_deg": 0.001,
         "temp_deg": 0.0014,
         "late_stint_start": 12,
-        "late_stint_deg": 0.015,
+        "late_stint_deg": 0.013,
     },
     "HARD": {
         "compound_delta": 0.68,

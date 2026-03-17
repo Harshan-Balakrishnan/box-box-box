@@ -1,0 +1,6 @@
+{
+  "feature_dim": 87,
+  "blend_alpha_model_rank": 1.0,
+  "validation_exact_matches": 213,
+  "validation_rank_error": 22252
+}
