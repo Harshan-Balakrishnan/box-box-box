@@ -1,151 +1,96 @@
-# Box Box Box 🏁
-## F1 Pit Strategy Optimization Challenge
+# Box Box Box — F1 Pit Strategy Optimization Challenge
 
-> *"Box, Box, Box"* - F1 radio call for pitting
+This repository contains my solution work for the **Box Box Box** challenge:
 
----
+> Reverse-engineer a hidden race simulation algorithm from 30,000 historical Formula 1 races and predict final finishing positions from pit strategy, tire choices, and track conditions.
 
-### 🎯 The Challenge
+## Project goal
 
-Reverse-engineer the race simulation algorithm from 30,000 historical F1 races. Your goal is to predict race finishing positions based on pit stop strategies, tire choices, and track conditions.
+The target problem is to build a simulator that:
 
-**Your Mission:** Analyze the data, discover the hidden patterns, and build a race simulator that accurately predicts outcomes.
+- reads race input from `stdin` as JSON
+- simulates all 20 drivers
+- models lap-by-lap race behavior
+- applies tire performance and degradation
+- handles pit stop timing and penalties
+- outputs the final finishing order as JSON to `stdout`
 
----
+## Current best confirmed result
 
-### 📊 What's Included
+My best confirmed **real simulator baseline** currently scores:
 
-- **30,000 Historical Races** - Complete race data with strategies and results
-- **100 Test Cases** - Validate your solution against known results
-- **Comprehensive Documentation** - F1 rules, data formats, and regulations
-- **Language Agnostic** - Solve in any programming language you prefer
-- **Starter Templates** - Example templates in Python, JavaScript, and Java
+- **14/100 exact matches** on the visible official scorer (`tools/score_official_100.py`)
 
----
+This is the best stable non-cheating version I found during reverse-engineering.
 
-### 🚀 Quick Start
+## What is considered the main solution
 
-```bash
-# 1. Fork this repository on GitHub
-# 2. Clone your fork
-git clone https://github.com/yourusername/box-box-box.git
-cd box-box-box
+The current main solution is:
 
-# 3. Read the problem statement
-cat PROBLEM_STATEMENT.md
+- `solution/race_simulator.py`
 
-# 4. Explore the historical data
-ls data/historical_races/
+This file is the best stable simulator baseline I found and is the version pointed to by:
 
-# 5. Implement your solution in the solution/ directory
-# See solution_templates/ for starter templates
+- `solution/run_command.txt`
 
-# 6. Configure your run command
-echo "python solution/race_simulator.py" > solution/run_command.txt
+I also keep a protected copy here:
 
-# 7. Test your solution
-./test_runner.sh
-```
+- `solution/race_simulator_best_14of100.py`
 
----
+## Solution approach
 
-### 🏆 Scoring
+I explored several approaches while working on the challenge:
 
-Your solution is tested against 100 test cases with varying complexity.
+### 1. Hand-built lap-by-lap simulator
+This is the current main baseline.
 
-**Your Score = (Correct Predictions / 100) × 100%**
+It models:
+- base lap time
+- tire compound performance differences
+- fresh tire bonuses
+- tire degradation over time
+- temperature interaction
+- pit lane time penalties
+- basic tie-breaking using grid position when predicted times are equal
 
-A prediction is correct only if the entire finishing order (all 20 positions) matches exactly.
+This is the most challenge-faithful version in the repository.
 
----
+### 2. Learned ranking model
+I also explored a machine-learning approach using XGBoost ranking trained on historical races.
 
-### 🧠 What You'll Learn
+Relevant files:
+- `solution/train_model.py`
+- `solution/trained_model/`
 
-- **Data Analysis**: Extract patterns from large datasets
-- **Reverse Engineering**: Discover hidden mechanics from examples
-- **Algorithm Design**: Build accurate simulation models
-- **Optimization**: Balance computational efficiency with accuracy
-- **Problem Solving**: Work through ambiguity to find solutions
+This approach learned patterns from historical race strategies and final orders, but in my visible evaluation it did not beat the best simulator baseline consistently enough to replace it as the main solution.
 
----
+### 3. Hybrid experiments
+I also tested hybrid approaches that combined:
+- simulator output
+- learned ranker output
 
-### 💡 Recommended Approach
+Relevant file:
+- `solution/race_simulator_hybrid.py`
 
-1. **Explore the Data**: Start by examining a few historical races manually
-2. **Identify Patterns**: Look for relationships between tire compounds, lap times, and conditions
-3. **Build Incrementally**: Start with a simple model, then add complexity
-4. **Test Frequently**: Validate against historical results before running test cases
-5. **Refine**: Use test results to identify and fix inaccuracies
+These experiments were useful for research, but they were not selected as the final primary solution because they did not outperform the best stable baseline on the visible official scorer.
 
----
+## Repository layout
 
-### 📖 Documentation
+- `solution/race_simulator.py` — current best stable simulator baseline
+- `solution/race_simulator_best_14of100.py` — backup copy of the best baseline
+- `solution/run_command.txt` — command used by the test runner
+- `solution/train_model.py` — XGBoost ranker training script
+- `solution/race_simulator_hybrid.py` — hybrid experiment
+- `tools/score_official_100.py` — visible official scorer
+- `tools/debug_test001.py` — debugging helper for `TEST_001`
+- `tools/tune_historical_params.py` — parameter search script
+- `tools/train_driver_offsets.py` — driver offset experiment
+- `data/historical_races/` — historical training races
+- `data/test_cases/` — provided visible tests
 
-- **[PROBLEM_STATEMENT.md](PROBLEM_STATEMENT.md)** - Formal problem description with requirements
-- **[SUBMISSION_GUIDE.md](SUBMISSION_GUIDE.md)** - Step-by-step submission instructions
-- **[docs/regulations.md](docs/regulations.md)** - F1 rules and racing constraints
-- **[docs/data_format.md](docs/data_format.md)** - JSON structure specification
-- **[docs/faq.md](docs/faq.md)** - Frequently asked questions
+## How to run the current best solution
 
----
-
-### 🎯 Success Criteria
-
-Your solution should:
-- ✅ Read race configuration and strategies from stdin (JSON format)
-- ✅ Simulate the race lap-by-lap for all 20 drivers
-- ✅ Calculate lap times based on tire compound, degradation, and temperature
-- ✅ Handle pit stops and apply time penalties correctly
-- ✅ Output finishing positions (1st to 20th) to stdout (JSON format)
-- ✅ Achieve high accuracy on test cases (aim for 80%+)
-
----
-
-### 🔧 Testing Your Solution
+### 1. Install dependencies
 
 ```bash
-# Run all 100 test cases
-./test_runner.sh
-
-# The test runner will:
-# - Read your command from solution/run_command.txt
-# - Run your solution against all test cases
-# - Display pass/fail results
-# - Show your final score
-```
-
-**Note**: Your solution must read from stdin and write to stdout. See [SUBMISSION_GUIDE.md](SUBMISSION_GUIDE.md) for details.
-
----
-
-### 🏁 Ready to Race?
-
-```bash
-# Read the problem
-cat PROBLEM_STATEMENT.md
-
-# Choose your language and copy a template
-cp solution_templates/python/solution_template.py solution/race_simulator.py
-
-# Update run command
-echo "python solution/race_simulator.py" > solution/run_command.txt
-
-# Start coding!
-code solution/race_simulator.py
-
-# Test your solution
-./test_runner.sh
-```
-
-**Good luck, and happy racing! 🏎️💨**
-
----
-
-### 📧 Contact
-
-For questions or issues, reach out to: **azeem@sansatech.com**
-
----
-
-*A coding challenge for algorithm enthusiasts and F1 fans*
-*Prepared by an F1 fan*
+pip install numpy xgboost
